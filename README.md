@@ -56,3 +56,44 @@ Siga estes passos para colocar o sistema no ar.
 -   O seu navegador abrirá na tela de login. Use as seguintes credenciais de administrador para aceder:
     -   **Matrícula:** `admin`
     -   **Senha:** `admin123`
+
+
+ Script SQL Completo (database.sql)
+Este ficheiro único prepara todo o seu banco de dados, desde a criação até a inserção do primeiro utilizador.
+
+-- Apaga o banco de dados antigo, se existir, para uma instalação limpa.
+DROP DATABASE IF EXISTS pontodb;
+
+-- Cria o novo banco de dados.
+CREATE DATABASE pontodb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Seleciona o banco de dados para os próximos comandos.
+USE pontodb;
+
+-- Cria a tabela de funcionários.
+CREATE TABLE `funcionarios` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `matricula` varchar(255) NOT NULL,
+  `nome_completo` varchar(255) NOT NULL,
+  `senha_hash` varchar(255) NOT NULL,
+  `perfil` varchar(255) NOT NULL DEFAULT 'funcionario',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `matricula` (`matricula`)
+) ENGINE=InnoDB;
+
+-- Cria a tabela para os registros de ponto.
+CREATE TABLE `registrosponto` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `data_registro` date NOT NULL,
+  `horario_registro` time NOT NULL,
+  `tipo_registro` varchar(255) NOT NULL,
+  `funcionario_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `funcionario_id` (`funcionario_id`),
+  CONSTRAINT `registrosponto_ibfk_1` FOREIGN KEY (`funcionario_id`) REFERENCES `funcionarios` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+-- Insere o utilizador administrador padrão.
+-- Senha: admin123 (em texto simples, sem criptografia)
+INSERT INTO `funcionarios` (matricula, nome_completo, senha_hash, perfil)
+VALUES ('admin', 'Administrador do Sistema', 'admin123', 'admin');
