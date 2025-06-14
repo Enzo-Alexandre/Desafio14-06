@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Ponto</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h2 id="welcome-message">Bem-vindo(a)</h2>
+            <button id="logout-button" class="btn-logout">Sair</button>
+        </header>
+        
+        <div class="clock-display">
+            <h3 id="current-date">--/--/----</h3>
+            <h1 id="current-time">--:--:--</h1>
+        </div>
+
+        <p id="message-area" class="message"></p>
+
+        <div class="ponto-actions">
+            <button class="ponto-button" data-tipo="entrada_manha">Entrada Manhã</button>
+            <button class="ponto-button" data-tipo="saida_manha">Saída Manhã</button>
+            <button class="ponto-button" data-tipo="entrada_tarde">Entrada Tarde</button>
+            <button class="ponto-button" data-tipo="saida_tarde">Saída Tarde</button>
+        </div>
+
+        <div class="records-section">
+            <h3>Meus Registros de Hoje</h3>
+            <table class="records-table">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Horário</th>
+                    </tr>
+                </thead>
+                <tbody id="records-table-body">
+                    <!-- Registros serão inseridos aqui pelo JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="js/ponto.js"></script>
+</body>
+</html>
